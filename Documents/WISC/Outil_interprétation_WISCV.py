@@ -1,12 +1,28 @@
+"""
+General advices:
+- Only use English in the code (and comments)
+- The two repositories Documents and WISC are pointless
+- The code is not PEP8 compliant, I'll give some examples in the code
+- There are no tests at all
+- The code is not modular, you should split it in functions
+- you should put the code in a main function calling other functions you create
+- main should be called inside a if __name__ == "__main__": block https://stackoverflow.com/questions/419163/what-does-if-name-main-do
+- use commits for each step of the code (in english)
+"""
+
+# PEP8: https://peps.python.org/pep-0008/#inline-comments
 #Liste des différentes épreuves et des résultats obtenus (NS)
+# as there is many subtests, the name should be subtests_list
 liste_subtest = [
     "cub", "puz", "voc", "sim", "mat", "bal", "mch", "mim", "cod", "sym"
     ]
 liste_profil = []
 
+# All that block should be in a function
 #Entré des scores par le praticien
 Cube = int(input("Quelle est la note standard au subtest cube ?"))
 liste_profil.append(Cube)
+# PEP8: https://peps.python.org/pep-0008/#function-and-variable-names
 Puzzle_visuel = int(input("Quelle est la note standard au subtest puzzles-visuel ?"))
 liste_profil.append(Puzzle_visuel)
 Vocabulaire = int(input("Quelle est la note standard au subtest vocabulaire ?"))
@@ -25,6 +41,31 @@ Code = int(input("Quelle est la note standard au subtest code ?"))
 liste_profil.append(Code)
 Symbole = int(input("Quelle est la note standard au subtest symbole ?"))
 liste_profil.append(Symbole)
+# Here you repeat the same code 10 times, you should use a loop
+# def input_subtests_scores() -> dict:
+#     subtests = [
+#         "cube",
+#         "puzzle_visuel",
+#         "vocabulaire",
+#         "similitudes",
+#         "matrices",
+#         "balances",
+#         "mémoire chiffres",
+#         "mémoire images",
+#         "code",
+#         "symbole"
+#     ]
+#     scores = {}
+#
+#     for subtest in subtests:
+#         # Here we use a try...except block in case the user enters a non-integer
+#         try:
+#             score = int(input(f"Quelle est la note standard au subtest {subtest} ?"))
+#         except ValueError:
+#             print("Please enter a number")
+#             score = int(input(f"Quelle est la note standard au subtest {subtest} ?"))
+#         scores[subtest] = score
+#     return scores
 
 #Afficher le tableau récapitulatif des résultats
 tableau_NS = list(zip(liste_subtest, liste_profil))
@@ -39,13 +80,22 @@ Total_IVS = Cube + Puzzle_visuel
 Total_IRF = Matrices + Balances
 Total_IMT = Memoire_chiffres + Memoire_images
 Total_IVT = Code + Symbole
+# total_scale is then equal to ICV + IRF + IMT + Code + Cube. Same for other scales below
 Echelle_total = (Cube + Similitudes + Matrices + Memoire_chiffres +
                 Memoire_images + Code + Vocabulaire + Balances)
 Echelle_IAG = (Cube + Similitudes + Matrices + Vocabulaire + Balances)
 Echelle_ICC = (Memoire_chiffres + Memoire_images + Code + Symbole)
 
 #Vérifier l'homogénéité au sein des indices
+# If you need to add and substract maybe it could be interesting to store couples in tuples
 Difference_IVS = Cube - Puzzle_visuel
+
+# As tresholds are the same for the two differences maybe you could use a function
+# def check_difference(diff: int, above: str, below: str):
+#     if diff >= 4:
+#         print(above)
+#     elif diff <= -4:
+#         print(below)
 if Difference_IVS >= 4:
     print("Vérifier les compétences en mémoire de travail. Le subtest Puzzle-Visuel sollicitant davantage ce processus.")
 elif Difference_IVS <= -4:
@@ -58,22 +108,28 @@ elif Difference_IVT <= -4:
     print("Fragilité des compétences graphomotrices. Nécessité bilan ergo +++")
 
 #Lien entre total indice et la note composite
-    #J'avais commencé en faisant un range pour somme_NS mais ça 
+    #J'avais commencé en faisant un range pour somme_NS mais ça
     #n'avait pas marché
+# You should have a look to list comprehensions https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions
+# ns_sum = [i for i in range(2, 39)]
 Somme_NS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
             14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-            24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 
+            24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
             34, 35, 36, 37, 38]
 
+# It could be better to use a dict to store the total and the index
 liste_indices = ["ICV", "IVS", "IRF", "IMT", "IVT"]
 liste_resultats = []
 
 #Calcul ICV : Indice de Compréhension Verbale
-liste_ICV = [45, 50, 55, 59, 62, 65, 68, 70, 73, 76, 
+# Isn't there a rule to calculate the list ?
+liste_ICV = [45, 50, 55, 59, 62, 65, 68, 70, 73, 76,
             81, 84, 86, 89, 92, 95, 98, 100, 103, 106,
             108, 111, 113, 116, 118, 121, 124, 127, 130,
             133, 136, 139, 142, 146, 150, 155]
 
+# You go through all the loop to check if the value is the same as the total, you could use the index directly
+# ns_sum.index(total_icv - 1)
 for i in Somme_NS:
     if i == Total_ICV:
         Num_liste1 = Somme_NS.index(i - 1)
@@ -168,6 +224,7 @@ Moyenne_indices = ((Resultat_ICV + Resultat_IMT + Resultat_IRF + Resultat_IVS + 
 print(f"La moyenne des indices est {Moyenne_indices}")
 
     #Regarder comment les résultats s'écartent de la moyenne
+# You repeat yourself, make a function
 Difference_ICV_Moyenne = Resultat_ICV - Moyenne_indices
 if Difference_ICV_Moyenne >= 10:
     liste_point_fort.append("ICV")
@@ -201,10 +258,11 @@ elif Difference_IVT_Moyenne <= -10:
 print(f"Les points faibles sont {liste_point_faible}")
 print(f"Les points forts sont {liste_point_fort}")
 
-#Calculer le QIT 
+#Calculer le QIT
+# [i for i in range(40, 161)] ?
 liste_QIT = [40, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
             51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-            64, 65, 66, 67, 68, 69, 70, 70, 71, 72, 73, 73, 74, 
+            64, 65, 66, 67, 68, 69, 70, 70, 71, 72, 73, 73, 74,
             75, 76, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
             88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101,
             102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112,
@@ -212,7 +270,7 @@ liste_QIT = [40, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
             126, 127, 128, 129, 129, 130, 131, 132, 133, 134, 135, 136,
             137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148,
             149, 150, 151, 152, 153, 155, 156, 157, 158, 159, 160, 160,
-            160, 160]
+            160, 160]  # 160 three times ?
 
 liste_addition_QIT = range(7, 134)
 
@@ -222,6 +280,22 @@ for w in liste_addition_QIT:
 
 Resultat_QIT = liste_QIT[Num_liste6]
 print(f"La note composite du QIT est de {Resultat_QIT}")
+
+# we can make it with a dict to avoid repetition
+# profile = {
+#     "HPI": range(130, max),
+#     "supérieur à la moyenne": range(120, 130),
+#     "moyenne haute": range(110, 120),
+#     "moyen": range(90, 110),
+#     "moyenne basse": range(80, 90),
+#     "fragile": range(70, 80),
+#     "déficience intellectuel": range(70)
+# }
+#
+# for key, value in profile.items():
+#     if Resultat_QIT in value:
+#         print(f"Profil {key}")
+#         break
 
 if Resultat_QIT >= 130:
     print("Profil HPI")
@@ -235,7 +309,7 @@ elif 80 >= Resultat_QIT < 90:
     print("Profil moyenne basse")
 elif 70 >= Resultat_QIT < 80:
     print("Profil fragile")
-else: 
+else:
     print("Déficience intellectuel")
 
 
@@ -243,7 +317,7 @@ else:
 liste_IAG = [40, 44, 47, 49, 51, 53, 54, 55, 56, 57, 59, 60,
             61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73,
             74, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 89,
-            91, 92, 94, 95, 97, "abs", "abs", "abs", 100, 101, 103, 104, 105, 107, 108,
+            91, 92, 94, 95, 97, "abs", "abs", "abs", 100, 101, 103, 104, 105, 107, 108,  # abs ?
             109, 111, 112, 113, 115, 116, 117, 118, 120, 121, 123,
             124, 125, 126, 127, 128, 129, 130, 132, 133, 134, 136,
             137, 138, 140, 141, 143, 144, 145, 147, 148, 149, 151,
