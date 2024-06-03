@@ -64,20 +64,20 @@ pass
 
 # --- VERIFIER L'HOMOGENEITE DES INDICES --- #
 def homogeneity_calcul():
-    indice_liste = [
+    indice_resultats = [
         total_IVS, total_ICV, total_IRF, total_IMT, total_IVT
 ]
     profil = ""
     def maximum_liste():
-        maxi = indice_liste[0]
-        for i in indice_liste:
+        maxi = indice_resultats[0]
+        for i in indice_resultats:
             if i >= maxi:
                 maxi = i
         return maxi
     
     def minimum_liste():
-        mini = indice_liste[0]
-        for i in indice_liste:
+        mini = indice_resultats[0]
+        for i in indice_resultats:
             if i <= mini:
                 mini = i
         return mini
@@ -89,29 +89,30 @@ def homogeneity_calcul():
         profil = "Homogène" 
     return profil
 
+print(f"Le profil de votre patient est {homogeneity_calcul()}")
+
+#utiliser def pour les totaux des indices et attribuer pour la boucle. à la fin appeler les résultats en faisant varier les indices
+# --- CONVERSION NOTE COMPOSITE --- #
+def indice_calcul(indice):
+    sum_NS = range(2, 39)
+    indices = ["ICV", "IVS", "IRF", "IMT", "IVT"]
+    liste_resultats = []
+    for indice in indices:
+        for i in sum_NS:
+            if i == total_IVS
 
 
 
-#Lien entre total indice et la note composite
-    #J'avais commencé en faisant un range pour somme_NS mais ça 
-    #n'avait pas marché
-Somme_NS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
-            14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-            24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 
-            34, 35, 36, 37, 38]
-
-liste_indices = ["ICV", "IVS", "IRF", "IMT", "IVT"]
-liste_resultats = []
-
-#Calcul ICV : Indice de Compréhension Verbale
-liste_ICV = [45, 50, 55, 59, 62, 65, 68, 70, 73, 76, 
-            81, 84, 86, 89, 92, 95, 98, 100, 103, 106,
-            108, 111, 113, 116, 118, 121, 124, 127, 130,
-            133, 136, 139, 142, 146, 150, 155]
+liste_ICV = [
+    45, 50, 55, 59, 62, 65, 68, 70, 73, 76, 
+    78, 81, 84, 86, 89, 92, 95, 98, 100, 103,
+    106, 108, 111, 113, 116, 118, 121, 124, 127,
+    130, 133, 136, 139, 142, 146, 150, 155
+]
 
 for i in Somme_NS:
     if i == Total_ICV:
-        Num_liste1 = Somme_NS.index(i - 1)
+        Num_liste1 = Somme_NS.index(i)
 
 Resultat_ICV = liste_ICV[Num_liste1]
 liste_resultats.append(Resultat_ICV)
@@ -124,7 +125,7 @@ liste_IVS = [45, 49, 53, 57, 61, 64, 67, 69, 72, 75,
 
 for j in Somme_NS:
     if j == Total_IVS:
-        Num_liste2 = Somme_NS.index(j - 1)
+        Num_liste2 = Somme_NS.index(j)
 
 Resultat_IVS = liste_IVS[Num_liste2]
 liste_resultats.append(Resultat_IVS)
@@ -137,7 +138,7 @@ liste_IRF = [45, 51, 55, 58, 61, 64, 67, 69, 72, 74,
 
 for s in Somme_NS:
     if s == Total_IRF:
-        Num_liste3 = Somme_NS.index(s - 1)
+        Num_liste3 = Somme_NS.index(s)
 
 Resultat_IRF = liste_IRF[Num_liste3]
 liste_resultats.append(Resultat_IRF)
@@ -150,7 +151,7 @@ liste_IMT = [45, 51, 55, 59, 62, 65, 67, 69, 72, 74, 76,
 
 for t in Somme_NS:
     if t == Total_IMT:
-        Num_liste4 = Somme_NS.index(t - 1)
+        Num_liste4 = Somme_NS.index(t)
 
 Resultat_IMT = liste_IMT[Num_liste4]
 liste_resultats.append(Resultat_IMT)
