@@ -91,17 +91,21 @@ def homogeneity_calcul():
 
 print(f"Le profil de votre patient est {homogeneity_calcul()}")
 
-#utiliser def pour les totaux des indices et attribuer pour la boucle. à la fin appeler les résultats en faisant varier les indices
+
 # --- CONVERSION NOTE COMPOSITE --- #
-def indice_calcul(indice):
+def calculer_rang():
     sum_NS = range(2, 39)
-    indices = ["ICV", "IVS", "IRF", "IMT", "IVT"]
-    liste_resultats = []
+    indices = [
+    total_ICV, total_IVS, total_IRF, total_IMT, total_IVT
+]
+    resultats = []
     for indice in indices:
         for i in sum_NS:
-            if i == total_IVS
+            if i == indice:
+                num_liste = sum_NS.index(i)
+    resultats.append(num_liste)
 
-
+    return resultats
 
 liste_ICV = [
     45, 50, 55, 59, 62, 65, 68, 70, 73, 76, 
@@ -110,64 +114,49 @@ liste_ICV = [
     130, 133, 136, 139, 142, 146, 150, 155
 ]
 
-for i in Somme_NS:
-    if i == Total_ICV:
-        Num_liste1 = Somme_NS.index(i)
+liste_IVS = [
+    45, 49, 53, 57, 61, 64, 67, 69, 72, 75, 
+    78, 81, 84, 86, 89, 92, 94, 97, 100, 102, 
+    105, 111, 114, 117, 119, 122, 126, 129, 132, 
+    135, 138, 141, 144, 147, 151, 155
+]
 
-Resultat_ICV = liste_ICV[Num_liste1]
-liste_resultats.append(Resultat_ICV)
+liste_IVS = [
+    45, 49, 53, 57, 61, 64, 67, 69, 72, 75, 
+    78, 81, 84, 86, 89, 92, 94, 97, 100, 102, 
+    105, 111, 114, 117, 119, 122, 126, 129, 132, 
+    135, 138, 141, 144, 147, 151, 155
+]
 
-#Calcul IVS : Indice Visuo-Spatial
-liste_IVS = [45, 49, 53, 57, 61, 64, 67, 69, 72, 75, 
-            78, 81, 84, 86, 89, 92, 94, 97, 100, 102, 
-            105, 111, 114, 117, 119, 122, 126, 129, 132, 
-            135, 138, 141, 144, 147, 151, 155]
+liste_IRF = [
+    45, 51, 55, 58, 61, 64, 67, 69, 72, 74,
+    76, 79, 82, 85, 88, 91, 94, 97, 100, 103, 106,
+    109, 112, 115, 118, 121, 123, 126, 128, 131,
+    134, 137, 140, 144, 147, 151, 155
+]
 
-for j in Somme_NS:
-    if j == Total_IVS:
-        Num_liste2 = Somme_NS.index(j)
+liste_IMT = [
+    45, 51, 55, 59, 62, 65, 67, 69, 72, 74, 76,
+    79, 82, 85, 88, 91, 94, 97, 100, 107, 110, 112,
+    115, 117, 120, 122, 125, 127, 130, 132, 135, 138,
+    142, 146, 150, 155]
 
-Resultat_IVS = liste_IVS[Num_liste2]
-liste_resultats.append(Resultat_IVS)
+liste_IVT = [
+    45, 49, 53, 56, 60, 63, 66, 69, 72, 75, 77, 80,
+    83, 86, 89, 92, 95, 98, 100, 103, 105, 108, 111,
+    114, 116, 119, 123, 126, 129, 132, 135, 138, 141, 144,
+    148, 151, 155
+]
 
-#Calcul IRF : Indice de Raisonnement Fluide
-liste_IRF = [45, 51, 55, 58, 61, 64, 67, 69, 72, 74,
-            76, 79, 82, 85, 88, 91, 94, 97, 100, 103, 106,
-            109, 112, 115, 118, 121, 123, 126, 128, 131,
-            134, 137, 140, 144, 147, 151, 155]
-
-for s in Somme_NS:
-    if s == Total_IRF:
-        Num_liste3 = Somme_NS.index(s)
-
-Resultat_IRF = liste_IRF[Num_liste3]
-liste_resultats.append(Resultat_IRF)
-
-#Calcul IMT : Indice de Mémoire de Travail
-liste_IMT = [45, 51, 55, 59, 62, 65, 67, 69, 72, 74, 76,
-            79, 82, 85, 88, 91, 94, 97, 100, 107, 110, 112,
-            115, 117, 120, 122, 125, 127, 130, 132, 135, 138,
-            142, 146, 150, 155]
-
-for t in Somme_NS:
-    if t == Total_IMT:
-        Num_liste4 = Somme_NS.index(t)
-
-Resultat_IMT = liste_IMT[Num_liste4]
-liste_resultats.append(Resultat_IMT)
-
-#Calcul IVT : Indice de Vitesse de Traitement
-liste_IVT = [45, 49, 53, 56, 60, 63, 66, 69, 72, 75, 77, 80,
-            83, 86, 89, 92, 95, 98, 100, 103, 105, 108, 111,
-            114, 116, 119, 123, 126, 129, 132, 135, 138, 141, 144,
-            148, 151, 155]
-
-for u in Somme_NS:
-    if u == Total_IVT:
-        Num_liste5 = Somme_NS.index(u - 1)
 
 Resultat_IVT = liste_IVT[Num_liste5]
 liste_resultats.append(Resultat_IVT)
+
+def calcul_indice(liste_indice):
+    for i in calculer_rang():
+        resultat(liste_indice) = #voir comment inclure la liste dans une liste
+
+    
 
 #Afficher liste résultats associés aux indices
 tableau_indices = list(zip(liste_indices, liste_resultats))
