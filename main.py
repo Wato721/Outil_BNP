@@ -62,50 +62,14 @@ if IVT_difference < -3:
 pass
 
 
-# --- VERIFIER L'HOMOGENEITE DES INDICES --- #
-def homogeneity_calcul():
-    indice_resultats = [
-        total_IVS, total_ICV, total_IRF, total_IMT, total_IVT
-]
-    profil = ""
-    def maximum_liste():
-        maxi = indice_resultats[0]
-        for i in indice_resultats:
-            if i >= maxi:
-                maxi = i
-        return maxi
-    
-    def minimum_liste():
-        mini = indice_resultats[0]
-        for i in indice_resultats:
-            if i <= mini:
-                mini = i
-        return mini
-    
-    profil_indice = maximum_liste - minimum_liste
-    if profil_indice >= 20:
-        profil = "Hétérogène"
-    else:
-        profil = "Homogène" 
-    return profil
-
-print(f"Le profil de votre patient est {homogeneity_calcul()}")
-
-
 # --- CONVERSION NOTE COMPOSITE --- #
-def calculer_rang():
-    sum_NS = range(2, 39)
-    indices = [
-    total_ICV, total_IVS, total_IRF, total_IMT, total_IVT
-]
-    resultats = []
+def calculate_ranks(indices):
+    ranks = []
     for indice in indices:
-        for i in sum_NS:
-            if i == indice:
-                num_liste = sum_NS.index(i)
-    resultats.append(num_liste)
+        if indice in range(2, 39):
+            ranks.append(range(2, 39).index(indice) + 1)
 
-    return resultats
+    return ranks
 
 liste_ICV = [
     45, 50, 55, 59, 62, 65, 68, 70, 73, 76, 
@@ -149,21 +113,66 @@ liste_IVT = [
 ]
 
 
-Resultat_IVT = liste_IVT[Num_liste5]
-liste_resultats.append(Resultat_IVT)
+measurement_names = [["ICV"], ["IVS"], ["IRF"], ["IMT"], ["IVT"]]
+measurement_lists = [liste_ICV, liste_IVS, liste_IRF, liste_IMT, liste_IVT]
+indice_value = {}
 
-def calcul_indice(liste_indice):
-    for i in calculer_rang():
-        resultat(liste_indice) = #voir comment inclure la liste dans une liste
+for i, measurement_list in enumerate(measurement_lists):
+    measurement_name = measurement_names[i][0]  
+    ranks = calculate_ranks(measurement_list)
+    indice_value[measurement_name] = ranks
 
+print(indice_value)
+
+for measurement_list in measurement_lists:
+    measurement_name = measurement_list[0].split()[0]  # Assuming name is first word
+    ranks = calculate_ranks(measurement_list)
+    indice_value[measurement_name] = ranks
+
+print(indice_value)
+
+# --- VERIFIER L'HOMOGENEITE DES INDICES --- #
+def homogeneity_calcul():
+    indice_resultats = [
+        total_IVS, total_ICV, total_IRF, total_IMT, total_IVT
+]
+    profil = ""
+    def maximum_liste():
+        maxi = indice_resultats[0]
+        for i in indice_resultats:
+            if i >= maxi:
+                maxi = i
+        return maxi
     
+    def minimum_liste():
+        mini = indice_resultats[0]
+        for i in indice_resultats:
+            if i <= mini:
+                mini = i
+        return mini
+    
+    profil_indice = maximum_liste - minimum_liste
+    if profil_indice >= 20:
+        profil = "Hétérogène"
+    else:
+        profil = "Homogène" 
+    return profil
+
+print(f"Le profil de votre patient est {homogeneity_calcul()}")
+
+
+
+
+
+
+
+
 
 #Afficher liste résultats associés aux indices
 tableau_indices = list(zip(liste_indices, liste_resultats))
 
 for trait in tableau_indices:
     print(trait)
-
 
 #Déterminer si le profil est hétérogène
     #Déterminer l'indice le plus haut
