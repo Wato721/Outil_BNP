@@ -1,22 +1,16 @@
-# --- DEFINITION DES SUBTESTS --- #
-subtests_list = [
-    "cub", "puz", "sim", "mat", "bal", "mch", "mim", "cod", "sym"
-]
-
-
-# --- CALCUL DES SCORES DES SUBTESTS --- #
+# --- CALCULATING SUBTEST SCORES --- #
 def subtests_score():
     subtests = [
         "cube",
-        "puzzle_visuel", 
-        "vocabulaire",
-        "similitudes",
+        "visual_puzzle",
+        "vocabulary",
+        "similarities",
         "matrices",
-        "balances",
-        "mémoire_chiffres",
-        "mémoire_images",
+        "scales",
+        "number_memory",
+        "images_memory",
         "code", 
-        "symbole" 
+        "symbol"
     ]
     scores = {}
     
@@ -24,45 +18,49 @@ def subtests_score():
         score = None
         while not score:
             try:
-                score = int(input(f"Quel est la note standard au subtest {subtest} ?"))
+                score = int(input(f"What is the standard score for the {subtest} subtest?"))
             except ValueError:
-                print("Veuillez entrer un nombre s'il vous plait")
+                print("Please enter a number")
         scores[subtest] = score
     return scores
 
 
-scores_subtests = subtests_score()
-
-# --- CALCUL DES INDICES --- #
-subtests_result = list(scores_subtests.values())
-    
-total_IVS = scores_subtests["cube"] + scores_subtests["puzzle_visuel"]
-total_ICV = scores_subtests["vocabulaire"] + scores_subtests["similitudes"] 
-total_IRF = scores_subtests["matrices"] + scores_subtests["balances"]
-total_IMT = scores_subtests["mémoire_chiffres"] + scores_subtests["mémoire_images"]
-total_IVT = scores_subtests["code"] + scores_subtests["symbole"]
-
-total_QIT = (total_ICV + total_IRF + total_IMT + scores_subtests["cube"] + scores_subtests["code"])
-total_IAG = (total_IRF + total_ICV + scores_subtests["cube"])
-total_ICC = (total_IVT + total_IMT)
+standard_subtest_scores = subtests_score()
 
 
-# --- VERIFIER L'HOMOGENEITE AU SEIN DES INDICES --- #
-IVS_difference = scores_subtests["cube"] - scores_subtests["puzzle_visuel"]
+# --- CHECK HOMOGENEITY WITHIN INDICES --- #
+IVS_difference = standard_subtest_scores["cube"] - standard_subtest_scores["visual_puzzle"]
 if IVS_difference < -3:
-    print("Il existe un risque de dyspraxie")
+    print("there is a risk of visual-motor coordination disorders")
 elif IVS_difference > 3:
-    print("La mémoire de travail est possiblement déficitaire")
+    print("working memory may be impaired")
 
-IVT_difference = scores_subtests["code"] - scores_subtests["symbole"]
+IVT_difference = standard_subtest_scores["code"] - standard_subtest_scores["symbol"]
 if IVT_difference < -3:
-    print(
-    "Il existe un risque de dyspraxie, demander un bilan ergothérapique"
-)
+    print("there is a risk of visual-motor coordination disorders, go to ergotherapy")
 pass
 
 
-# --- CONVERSION NOTE COMPOSITE --- #
+# --- CALCULATING INDICES FROM SUBTESTS SCORES --- #
+subtests_result = list(standard_subtest_scores.values())
+    
+sums_standard_notes_IVS = standard_subtest_scores["cube"] + standard_subtest_scores["visual_puzzle"]
+sums_standard_notes_ICV = standard_subtest_scores["vocabulary"] + standard_subtest_scores["similarities"]
+sums_standard_notes_IRF = standard_subtest_scores["matrices"] + standard_subtest_scores["scales"]
+sums_standard_notes_IMT = standard_subtest_scores["number_memory"] + standard_subtest_scores["images_memory"]
+sums_standard_notes_IVT = standard_subtest_scores["code"] + standard_subtest_scores["symbol"]
+
+sums_standard_notes_QIT = (
+        sums_standard_notes_ICV + sums_standard_notes_IRF +
+        sums_standard_notes_IMT + standard_subtest_scores["cube"] +
+        standard_subtest_scores["code"]
+)
+
+sums_standard_notes_IAG = sums_standard_notes_IRF + sums_standard_notes_ICV + standard_subtest_scores["cube"]
+sums_standard_notes_ICC = sums_standard_notes_IVT + sums_standard_notes_IMT
+
+
+# --- CONVERTING INDEX RATINGS INTO COMPOSITE RATINGS --- #
 def calculate_ranks(indices):
     ranks = []
     for indice in indices:
@@ -72,10 +70,8 @@ def calculate_ranks(indices):
     return ranks
 
 liste_ICV = [
-    45, 50, 55, 59, 62, 65, 68, 70, 73, 76, 
-    78, 81, 84, 86, 89, 92, 95, 98, 100, 103,
-    106, 108, 111, 113, 116, 118, 121, 124, 127,
-    130, 133, 136, 139, 142, 146, 150, 155
+    45, 50, 55, 59, 62, 65, 68, 70, 73, 76, 78, 81, 84, 86, 89, 92, 95, 98, 100, 103,
+    106, 108, 111, 113, 116, 118, 121, 124, 127, 130, 133, 136, 139, 142, 146, 150, 155
 ]
 
 liste_IVS = [
@@ -134,7 +130,7 @@ print(indice_value)
 # --- VERIFIER L'HOMOGENEITE DES INDICES --- #
 def homogeneity_calcul():
     indice_resultats = [
-        total_IVS, total_ICV, total_IRF, total_IMT, total_IVT
+        sums_standard_notes_IVS, sums_standard_notes_ICV, sums_standard_notes_IRF, sums_standard_notes_IMT, sums_standard_notes_IVT
 ]
     profil = ""
     def maximum_liste():
