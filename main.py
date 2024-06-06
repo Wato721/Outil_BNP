@@ -1,5 +1,4 @@
-# --- CALCULATING SUBTEST SCORES --- #
-def subtests_score():
+def calculating_subtests_score():
     subtests = [
         "cube",
         "visual_puzzle",
@@ -25,10 +24,10 @@ def subtests_score():
     return scores
 
 
-standard_subtest_scores = subtests_score()
+standard_subtest_scores = calculating_subtests_score()
 
 
-# --- CHECK HOMOGENEITY WITHIN INDICES --- #
+# check homogeneity within indices
 IVS_difference = standard_subtest_scores["cube"] - standard_subtest_scores["visual_puzzle"]
 if IVS_difference < -3:
     print("there is a risk of visual-motor coordination disorders")
@@ -41,7 +40,7 @@ if IVT_difference < -3:
 pass
 
 
-# --- CALCULATING INDICES FROM SUBTESTS SCORES --- #
+# calculating indices from subtests scores
 subtests_result = list(standard_subtest_scores.values())
     
 sums_standard_notes_IVS = standard_subtest_scores["cube"] + standard_subtest_scores["visual_puzzle"]
@@ -54,182 +53,166 @@ sums_standard_notes_QIT = (
         sums_standard_notes_ICV + sums_standard_notes_IRF +
         sums_standard_notes_IMT + standard_subtest_scores["cube"] +
         standard_subtest_scores["code"]
-)
+    )
 
 sums_standard_notes_IAG = sums_standard_notes_IRF + sums_standard_notes_ICV + standard_subtest_scores["cube"]
 sums_standard_notes_ICC = sums_standard_notes_IVT + sums_standard_notes_IMT
 
 
-# --- CONVERTING INDEX RATINGS INTO COMPOSITE RATINGS --- #
-def calculate_ranks(indices):
-    ranks = []
-    for indice in indices:
-        if indice in range(2, 39):
-            ranks.append(range(2, 39).index(indice) + 1)
+# converting index ratings into composite ratings
+index_ratings = range(2, 39)
 
-    return ranks
 
-liste_ICV = [
-    45, 50, 55, 59, 62, 65, 68, 70, 73, 76, 78, 81, 84, 86, 89, 92, 95, 98, 100, 103,
-    106, 108, 111, 113, 116, 118, 121, 124, 127, 130, 133, 136, 139, 142, 146, 150, 155
+def composite_rating_icv():
+    icv_value = [
+        45, 50, 55, 59, 62,
+        65, 68, 70, 73, 76,
+        78, 81, 84, 86, 89,
+        92, 95, 98, 100, 103,
+        106, 108, 111, 113, 116,
+        118, 121, 124, 127, 130,
+        133, 136, 139, 142, 146,
+        150, 155
+    ]
+    for i in index_ratings:
+        if i == sums_standard_notes_ICV:
+            rating_icv = index_ratings.index(i)
+    icv_score = icv_value[rating_icv]
+
+    return icv_score
+
+
+def composite_rating_ivs():
+    ivs_value = [
+        45, 49, 53, 57, 61,
+        64, 67, 69, 72, 75,
+        78, 81, 84, 86, 89,
+        92, 94, 97, 100, 102,
+        105, 108, 111, 114, 117,
+        119, 122, 126, 129, 132,
+        135, 138, 141, 144, 147,
+        151, 155
+    ]
+    for i in index_ratings:
+        if i == sums_standard_notes_IVS:
+            rating_ivs = index_ratings.index(i)
+    ivs_score = ivs_value[rating_ivs]
+
+    return ivs_score
+
+
+def composite_rating_irf():
+    irf_value = [
+        45, 51, 55, 58, 61,
+        64, 67, 69, 72, 74,
+        76, 79, 82, 85, 88,
+        91, 94, 97, 100, 103,
+        106, 109, 112, 115, 118,
+        121, 123, 126, 128, 131,
+        134, 137, 140, 144, 147,
+        151, 155
+    ]
+    for i in index_ratings:
+        if i == sums_standard_notes_IRF:
+            rating_irf = index_ratings.index(i)
+    irf_score = irf_value[rating_irf]
+
+    return irf_score
+
+
+def composite_rating_imt():
+    imt_value = [
+        45, 51, 55, 59, 62,
+        65, 67, 69, 72, 74,
+        76, 79, 82, 85, 88,
+        91, 94, 97, 100, 103,
+        107, 110, 112, 115, 117,
+        120, 122, 125, 127, 130,
+        132, 135, 138, 142, 146,
+        150, 155
+    ]
+    for i in index_ratings:
+        if i == sums_standard_notes_IMT:
+            rating_imt = index_ratings.index(i)
+    imt_score = imt_value[rating_imt]
+
+    return imt_score
+
+
+def composite_rating_ivt():
+    ivt_value = [
+        45, 49, 53, 56, 60,
+        63, 66, 69, 72, 75,
+        77, 80, 83, 86, 89,
+        92, 95, 98, 100, 103,
+        105, 108, 111, 114, 116,
+        119, 123, 126, 129, 132,
+        135, 138, 141, 144, 148,
+        151, 155
+    ]
+    for i in index_ratings:
+        if i == sums_standard_notes_IVT:
+            rating_ivt = index_ratings.index(i)
+    ivt_score = ivt_value[rating_ivt]
+
+    return ivt_score
+
+
+composite_scale_icv = composite_rating_icv()
+composite_scale_ivs = composite_rating_ivs()
+composite_scale_irf = composite_rating_irf()
+composite_scale_imt = composite_rating_imt()
+composite_scale_ivt = composite_rating_ivt()
+
+composite_scale_scores = [
+    composite_scale_icv, composite_scale_ivs,
+    composite_scale_irf, composite_scale_imt,
+    composite_scale_ivt
 ]
 
-liste_IVS = [
-    45, 49, 53, 57, 61, 64, 67, 69, 72, 75, 
-    78, 81, 84, 86, 89, 92, 94, 97, 100, 102, 
-    105, 111, 114, 117, 119, 122, 126, 129, 132, 
-    135, 138, 141, 144, 147, 151, 155
-]
+print(composite_scale_scores)
 
-liste_IVS = [
-    45, 49, 53, 57, 61, 64, 67, 69, 72, 75, 
-    78, 81, 84, 86, 89, 92, 94, 97, 100, 102, 
-    105, 111, 114, 117, 119, 122, 126, 129, 132, 
-    135, 138, 141, 144, 147, 151, 155
-]
-
-liste_IRF = [
-    45, 51, 55, 58, 61, 64, 67, 69, 72, 74,
-    76, 79, 82, 85, 88, 91, 94, 97, 100, 103, 106,
-    109, 112, 115, 118, 121, 123, 126, 128, 131,
-    134, 137, 140, 144, 147, 151, 155
-]
-
-liste_IMT = [
-    45, 51, 55, 59, 62, 65, 67, 69, 72, 74, 76,
-    79, 82, 85, 88, 91, 94, 97, 100, 107, 110, 112,
-    115, 117, 120, 122, 125, 127, 130, 132, 135, 138,
-    142, 146, 150, 155]
-
-liste_IVT = [
-    45, 49, 53, 56, 60, 63, 66, 69, 72, 75, 77, 80,
-    83, 86, 89, 92, 95, 98, 100, 103, 105, 108, 111,
-    114, 116, 119, 123, 126, 129, 132, 135, 138, 141, 144,
-    148, 151, 155
-]
+# check index homogeneity
 
 
-measurement_names = [["ICV"], ["IVS"], ["IRF"], ["IMT"], ["IVT"]]
-measurement_lists = [liste_ICV, liste_IVS, liste_IRF, liste_IMT, liste_IVT]
-indice_value = {}
-
-for i, measurement_list in enumerate(measurement_lists):
-    measurement_name = measurement_names[i][0]  
-    ranks = calculate_ranks(measurement_list)
-    indice_value[measurement_name] = ranks
-
-print(indice_value)
-
-for measurement_list in measurement_lists:
-    measurement_name = measurement_list[0].split()[0]  # Assuming name is first word
-    ranks = calculate_ranks(measurement_list)
-    indice_value[measurement_name] = ranks
-
-print(indice_value)
-
-# --- VERIFIER L'HOMOGENEITE DES INDICES --- #
 def homogeneity_calcul():
-    indice_resultats = [
-        sums_standard_notes_IVS, sums_standard_notes_ICV, sums_standard_notes_IRF, sums_standard_notes_IMT, sums_standard_notes_IVT
-]
-    profil = ""
-    def maximum_liste():
-        maxi = indice_resultats[0]
-        for i in indice_resultats:
-            if i >= maxi:
-                maxi = i
-        return maxi
-    
-    def minimum_liste():
-        mini = indice_resultats[0]
-        for i in indice_resultats:
-            if i <= mini:
-                mini = i
-        return mini
-    
-    profil_indice = maximum_liste - minimum_liste
-    if profil_indice >= 20:
-        profil = "Hétérogène"
+    standard_deviation = max(composite_scale_scores) - min(composite_scale_scores)
+    if standard_deviation >= 20:
+        profile = "heterogeneous"
     else:
-        profil = "Homogène" 
-    return profil
-
-print(f"Le profil de votre patient est {homogeneity_calcul()}")
+        profile = "Homogeneous"
+    return profile
 
 
+profile_wisc = homogeneity_calcul()
+
+print(f"your patient's profile is {profile_wisc}")
+
+# calculate the patient's strengths
+name_composite_score = ["ICV", "IVS", "IRF", "IMT", "IVT"]
+average_composite_score = sum(composite_scale_scores) / len(composite_scale_scores)
 
 
+def calculating_patient_strengths():
+    highlights_list_patient = {}
+    for composite_scale_score in composite_scale_scores:
+        if composite_scale_score >= 10:
+            highlights_list_patient[name_composite_score] = composite_scale_score
+    return highlights_list_patient
 
 
+def calculating_patient_weak_points():
+    weaknesses_list_patient = {}
+    for composite_scale_score in composite_scale_scores:
+        if composite_scale_score <= 10:
+            weaknesses_list_patient[name_composite_score] = composite_scale_score
+    return weaknesses_list_patient
 
 
+highlights_list = calculating_patient_strengths()
+weaknesses_list = calculating_patient_weak_points()
+print(f"the highlights are {highlights_list} and the weak points are {weaknesses_list}")
 
-#Afficher liste résultats associés aux indices
-tableau_indices = list(zip(liste_indices, liste_resultats))
-
-for trait in tableau_indices:
-    print(trait)
-
-#Déterminer si le profil est hétérogène
-    #Déterminer l'indice le plus haut
-maxi = liste_resultats[0]
-for x in liste_resultats:
-    if x >= maxi:
-        maxi = x
-
-    #Déterminer l'indice le plus bas
-mini = liste_resultats[0]
-for z in liste_resultats:
-    if z <= mini:
-        mini = z
-
-Diffence_indices = maxi - mini
-if Diffence_indices >= 20:
-    print("Le profil est hétérogène. Ne pas tenir compte du QIT, mais de l'IAG")
-else:
-    print("Le profil est homogène")
-
-#Calculer les forces et les faiblesses du profil
-liste_point_fort = []
-liste_point_faible = []
-
-    #Calculer la moyenne des indices
-Moyenne_indices = ((Resultat_ICV + Resultat_IMT + Resultat_IRF + Resultat_IVS + Resultat_IVT)/5)
-print(f"La moyenne des indices est {Moyenne_indices}")
-
-    #Regarder comment les résultats s'écartent de la moyenne
-Difference_ICV_Moyenne = Resultat_ICV - Moyenne_indices
-if Difference_ICV_Moyenne >= 10:
-    liste_point_fort.append("ICV")
-elif Difference_ICV_Moyenne <= -10:
-    liste_point_faible.append("ICV")
-
-Difference_IVS_Moyenne = Resultat_IVS - Moyenne_indices
-if Difference_IVS_Moyenne >= 10:
-    liste_point_fort.append("IVS")
-elif Difference_IVS_Moyenne <= -10:
-    liste_point_faible.append("IVS")
-
-Difference_IRF_Moyenne = Resultat_IRF - Moyenne_indices
-if Difference_IRF_Moyenne >= 10:
-    liste_point_fort.append("IRF")
-elif Difference_IRF_Moyenne <= -10:
-    liste_point_faible.append("IRF")
-
-Difference_IMT_Moyenne = Resultat_IMT - Moyenne_indices
-if Difference_IMT_Moyenne >= 10:
-    liste_point_fort.append("IMT")
-elif Difference_IMT_Moyenne <= -10:
-    liste_point_faible.append("IMT")
-
-Difference_IVT_Moyenne = Resultat_IVT - Moyenne_indices
-if Difference_IVT_Moyenne >= 10:
-    liste_point_fort.append("IVT")
-elif Difference_IVT_Moyenne <= -10:
-    liste_point_faible.append("IVT")
-
-print(f"Les points faibles sont {liste_point_faible}")
-print(f"Les points forts sont {liste_point_fort}")
 
 #Calculer le QIT 
 liste_QIT = [40, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
