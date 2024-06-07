@@ -251,37 +251,45 @@ def composite_rating_qit():
 composite_scale_qit = composite_rating_qit()
 
 
+# calculating iag
 
-#Calculer l'IAG
-liste_IAG = [40, 44, 47, 49, 51, 53, 54, 55, 56, 57, 59, 60,
-            61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73,
-            74, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 89,
-            91, 92, 94, 95, 97, "abs", "abs", "abs", 100, 101, 103, 104, 105, 107, 108,
-            109, 111, 112, 113, 115, 116, 117, 118, 120, 121, 123,
-            124, 125, 126, 127, 128, 129, 130, 132, 133, 134, 136,
-            137, 138, 140, 141, 143, 144, 145, 147, 148, 149, 151,
-            152, 154, 155]
 
-liste_addition_IAG = range(5, 93)
+def composite_rating_iag():
+    index_ratings_iag = range(5, 93)
+    iag_value = [
+        40, 44, 47, 49, 51,
+        53, 54, 55, 56, 57,
+        59, 60, 61, 62, 63,
+        64, 65, 66, 67, 68,
+        69, 70, 71, 72, 73,
+        74, 75, 76, 77, 78,
+        79, 81, 82, 83, 85,
+        86, 87, 89, 91, 92,
+        94, 95, 97, 98, 99,
+        99, 100, 101, 103, 104,
+        105, 107, 108, 109, 111,
+        112, 113, 115, 116, 117,
+        118, 120, 121, 123, 124,
+        125, 126, 127, 128, 129,
+        130, 132, 133, 134, 136,
+        137, 138, 140, 141, 143,
+        144, 145, 147, 148, 149,
+        151, 152, 154, 155
+    ]
 
-for a in liste_addition_QIT:
-    if a == Echelle_IAG:
-        Num_liste7 = liste_addition_IAG.index(a - 1)
+    for i in index_ratings_iag:
+        if i == sums_standard_notes_IAG:
+            rating_iag = index_ratings_iag.index(i)
+    qit_score = iag_value[rating_iag]
 
-Resultat_IAG = liste_IAG[Num_liste7]
-print(f"La note composite de l'IAG est {Resultat_IAG}")
+    return qit_score
 
-if Resultat_IAG >= 130:
-    print("Profil HPI")
-elif 120 >= Resultat_IAG <130:
-    print("Profil supérieur à la moyenne")
-elif 110 >= Resultat_IAG <120:
-    print("Profil moyenne haute")
-elif 90 >= Resultat_IAG < 110:
-    print("Profil moyen")
-elif 80 >= Resultat_IAG < 90:
-    print("Profil moyenne basse")
-elif 70 >= Resultat_IAG < 80:
-    print("Profil fragile")
-else: 
-    print("Déficience intellectuel")
+
+composite_scale_iag = composite_rating_iag()
+
+
+if profile_wisc == "heterogeneous":
+    print(f"the composite scale of iag is {composite_scale_iag}")
+else:
+    print(f"the composite scale of qit is {composite_scale_qit}")
+
