@@ -289,6 +289,6 @@ composite_scale_iag = composite_rating_iag()
 
 
 if profile_wisc == "heterogeneous":
-    print(f"the composite scale of iag is {composite_scale_iag}")
+    print(f"the composite score of iag is {composite_scale_iag}")
 else:
-    print(f"the composite scale of qit is {composite_scale_qit}")
+    print(f"the composite score of qit is {composite_scale_qit}")
