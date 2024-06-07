@@ -188,68 +188,68 @@ profile_wisc = homogeneity_calcul()
 
 print(f"your patient's profile is {profile_wisc}")
 
-# calculate the patient's strengths
-name_composite_score = ["ICV", "IVS", "IRF", "IMT", "IVT"]
+# calculate the patient's strengths/weak points
+highlights_list_patient = []
+weaknesses_list_patient = []
 average_composite_score = sum(composite_scale_scores) / len(composite_scale_scores)
 
+for composite_scale_score in composite_scale_scores:
+    difference = composite_scale_score - average_composite_score
+    if difference >= 10:
+        highlights_list_patient.append(composite_scale_score)
+    elif difference <= 10:
+        weaknesses_list_patient.append(composite_scale_score)
+    else:
+        pass
 
-def calculating_patient_strengths():
-    highlights_list_patient = {}
-    for composite_scale_score in composite_scale_scores:
-        if composite_scale_score >= 10:
-            highlights_list_patient[name_composite_score] = composite_scale_score
-    return highlights_list_patient
-
-
-def calculating_patient_weak_points():
-    weaknesses_list_patient = {}
-    for composite_scale_score in composite_scale_scores:
-        if composite_scale_score <= 10:
-            weaknesses_list_patient[name_composite_score] = composite_scale_score
-    return weaknesses_list_patient
+print(highlights_list_patient)
+print(weaknesses_list_patient)
 
 
-highlights_list = calculating_patient_strengths()
-weaknesses_list = calculating_patient_weak_points()
-print(f"the highlights are {highlights_list} and the weak points are {weaknesses_list}")
+# calculating QIT
 
 
-#Calculer le QIT 
-liste_QIT = [40, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
-            51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-            64, 65, 66, 67, 68, 69, 70, 70, 71, 72, 73, 73, 74, 
-            75, 76, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
-            88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101,
-            102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112,
-            113, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
-            126, 127, 128, 129, 129, 130, 131, 132, 133, 134, 135, 136,
-            137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148,
-            149, 150, 151, 152, 153, 155, 156, 157, 158, 159, 160, 160,
-            160, 160]
+def composite_rating_qit():
+    index_ratings_qit = range(7, 134)
+    qit_value = [
+        40, 40, 41, 42, 43,
+        44, 45, 46, 47, 48,
+        49, 50, 51, 52, 53,
+        54, 55, 56, 57, 58,
+        59, 60, 61, 62, 63,
+        64, 65, 66, 67, 68,
+        69, 70, 70, 71, 72,
+        73, 73, 74, 75, 76,
+        76, 77, 78, 79, 80,
+        81, 82, 83, 84, 85,
+        86, 87, 88, 89, 91,
+        92, 93, 94, 95, 96,
+        97, 98, 99, 100, 101,
+        102, 103, 104, 105, 106,
+        107, 108, 109, 110, 111,
+        112, 113, 115, 116, 117,
+        118, 119, 120, 121, 122,
+        123, 124, 125, 126, 127,
+        128, 129, 129, 130, 131,
+        132, 133, 134, 135, 136,
+        137, 138, 139, 140, 141,
+        142, 143, 144, 145, 146,
+        147, 148, 149, 150, 151,
+        152, 153, 155, 156, 157,
+        158, 159, 160, 160, 160,
+        160
+    ]
 
-liste_addition_QIT = range(7, 134)
+    for i in index_ratings_qit:
+        if i == sums_standard_notes_QIT:
+            rating_qit = index_ratings_qit.index(i)
+    qit_score = qit_value[rating_qit]
 
-for w in liste_addition_QIT:
-    if w == Echelle_total:
-        Num_liste6 = liste_addition_QIT.index(w - 1)
+    return qit_score
 
-Resultat_QIT = liste_QIT[Num_liste6]
-print(f"La note composite du QIT est de {Resultat_QIT}")
 
-if Resultat_QIT >= 130:
-    print("Profil HPI")
-elif 120 >= Resultat_QIT <130:
-    print("Profil supérieur à la moyenne")
-elif 110 >= Resultat_QIT <120:
-    print("Profil moyenne haute")
-elif 90 >= Resultat_QIT < 110:
-    print("Profil moyen")
-elif 80 >= Resultat_QIT < 90:
-    print("Profil moyenne basse")
-elif 70 >= Resultat_QIT < 80:
-    print("Profil fragile")
-else: 
-    print("Déficience intellectuel")
+composite_scale_qit = composite_rating_qit()
+
 
 
 #Calculer l'IAG
