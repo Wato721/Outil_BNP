@@ -292,4 +292,3 @@ if profile_wisc == "heterogeneous":
     print(f"the composite scale of iag is {composite_scale_iag}")
 else:
     print(f"the composite scale of qit is {composite_scale_qit}")
-
